@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+  <link rel="stylesheet" type="text/css" href="css/styling.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+  <script src="js/updateBalance.js"></script>
+</head>
+
+<style>
+.PINtext {
+	font-size:25px;
+	width: 400px;
+	text-align: center;
+}
+.calcBtn {
+	font-size: 20px;
+	width: 80px;
+  height: 80px;
+  margin: 5px;
+}
+</style>
+
+<body>
+
+<h1 align="center"><font size="7"><big><big>Welcome to Stylo Bank</big></big></font></h1>
+
+<div class="row">
+	<h2 style="text-align: center">Enter your Details & your 5 digit account number or insert your card below:</h2>
+</div>
+
+<form>
+ 
+<p align="center"> *** The Account Number is 12345 *** </p>
+
+<p align="center"><input  id="tbInput" class="PINtext" type="password" placeholder="Enter Account Number" maxlength="16" readonly/></p>
+<p align="center"><input   id="tbInput1" class="PINtext"  placeholder="Enter Name" maxlength="16" /></p>
+<p align="center"><input   id="emailErr" class="PINtext"  placeholder="Enter Em@il" maxlength="16"  /></p>
+<p align="center"><input   class="PINtext"  placeholder="Enter Phone" maxlength="16"  /></p>
+
+
+
+<div  id="VirtualKey" align="center">
+    <input class="calcBtn" id="btn1" type="button" onclick="input(this);" value="1" />
+    <input class="calcBtn" id="btn2" type="button" onclick="input(this);" value="2" />
+    <input class="calcBtn" id="btn3" type="button" onclick="input(this);" value="3"/>
+    <br />
+    <input class="calcBtn" id="btn4" type="button" onclick="input(this);" value="4"/>
+    <input class="calcBtn" id="btn5" type="button" onclick="input(this);" value="5"/>
+    <input class="calcBtn" id="btn6" type="button" onclick="input(this);" value="6"/>
+    <br />
+    <input class="calcBtn" id="btn7" type="button" onclick="input(this);" value="7"/>
+    <input class="calcBtn" id="btn8" type="button" onclick="input(this);" value="8"/>
+    <input class="calcBtn" id="btn9" type="button" onclick="input(this);" value="9"/>
+    <br />
+    <input class="calcBtn" id="btnEnt" type="button" onclick="ent()" style="color:green" value="Enter"/>
+    <input class="calcBtn" id="btn0" type="button" onclick="input(this)" value="0"/>
+    <input class="calcBtn" id="btnDel" type="button" style="color:red" value="Delete" onclick="del();" />
+</div>
+</form>
+<h2 align="center"><font size="6">Insert Card</font></h2>
+
+<p align="center"><input type="image" src="images/insert_card.png" name="insertCard"  id="insertCard" onclick="insertCard()"></p>
+
+<script>
+  var users = {
+    'accountNumber': 12345,
+    'accountPin': 6969,
+    'chequingBalance': 4000,
+    'chequingTransactions': [[Date(),0,0,4000]],
+ 
+  };
+  console.log(users)
+  updateSessionStorage(users);
+
+function insertCard(){
+  window.location="PINInput.html"
+}
+
+function input(e) {
+    var tbInput = document.getElementById("tbInput");
+    if (tbInput.value.length < 16) {
+    tbInput.value=tbInput.value + e.value;
+	}
+}
+
+function del() {
+	var tbInput = document.getElementById("tbInput");
+	tbInput.value = tbInput.value.substr(0, tbInput.value.length-1);
+}
+
+function ent() {
+	var PIN="12345";
+  var str1=document.getElementById("tbInput").value;
+  var x = document.getElementById("tbInput1").value;
+  var email = document.getElementById("emailErr").value;
+  var regex = /^\S+@\S+\.\S+$/;
+  
+	if (str1==PIN)  {
+    window.location="PINInput.html";
+    
+ 	} else {
+ 		alert("That account number does not exist!");
+     document.getElementById("tbInput").value ="";
+   }
+   if (x == "") {
+  alert("Please enter your name");
+  window.location="index.html";
+} 
+
+// Validate email address
+if(email == "") {
+        alert( "Please enter your email address");
+        window.location="index.html";
+    } else {
+        // Regular expression for basic email validation
+        
+        if(regex.test(email) === false) {
+            alert("Please enter a valid email address");
+        } else{
+            
+            window.location="PINInput.html";
+        }
+    }
+
+
+
+}
+   
+  
+
+</script>
+</body>
+</html>
